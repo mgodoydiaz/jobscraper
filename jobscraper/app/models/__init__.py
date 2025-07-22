@@ -3,7 +3,18 @@
 # Definición de modelos de datos y esquemas Pydantic
 
 # Importar modelos de base de datos
-from .database_models import Company, JobOffer, User
+from .database_models import (
+    # Modelos principales
+    User, Company, JobOffer,
+    # Modelos de scraping
+    ScrapingSource, ScrapingJob,
+    # Modelos de historial
+    UserJobInteraction, SearchHistory,
+    # Modelos adicionales
+    UserApplication, JobAlert,
+    # Enums de base de datos
+    JobStatusEnum, ApplicationStatusEnum, ScrapingStatusEnum, UserRoleEnum
+)
 
 # Importar esquemas Pydantic principales
 from .job_models import (
@@ -35,8 +46,16 @@ from .job_models import (
 )
 
 __all__ = [
-    # Modelos ORM
-    "Company", "JobOffer", "User",
+    # Modelos ORM principales
+    "User", "Company", "JobOffer",
+    # Modelos ORM de scraping
+    "ScrapingSource", "ScrapingJob",
+    # Modelos ORM de historial
+    "UserJobInteraction", "SearchHistory",
+    # Modelos ORM adicionales
+    "UserApplication", "JobAlert",
+    # Enums de base de datos
+    "JobStatusEnum", "ApplicationStatusEnum", "ScrapingStatusEnum", "UserRoleEnum",
     
     # Enums
     "JobStatus", "ApplicationStatus", "ScrapingStatus", "UserRole",
