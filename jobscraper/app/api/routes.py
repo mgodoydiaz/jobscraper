@@ -99,8 +99,7 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
         )
     
     # Crear usuario con contraseña hasheada
-    hashed_password = hash_password(user.password)
-    db_user = crud.create_user(db=db, user=user, hashed_password=hashed_password)
+    db_user = crud.create_user(db=db, user=user)
     
     log_user_action(db_user.id, "user_registered")
     
