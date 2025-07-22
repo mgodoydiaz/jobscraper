@@ -2,13 +2,12 @@
 # Modelos de datos para ofertas laborales
 # Definición de esquemas Pydantic para validación y serialización de datos
 
-from pydantic import BaseModel, EmailStr, HttpUrl, validator, Field
-from typing import Optional, List, Dict, Any, Union
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
-
+from pydantic import BaseModel, EmailStr, HttpUrl, validator, Field
+from typing import Optional, List, Dict, Any, Union
 # ==================== ENUMS ====================
 
 class JobStatus(str, Enum):
