@@ -83,7 +83,7 @@ def delete_user(db: Session, user_id: int) -> bool:
 
 
 def update_user_last_login(db: Session, user_id: int) -> None:
-    """Actualizar la fecha de último login del usuario."""
+    """Actualizar la fecha de ultimo login del usuario."""
     db_user = get_user(db, user_id)
     if db_user:
         db_user.last_login = datetime.utcnow()
@@ -200,7 +200,7 @@ def get_job_offers(
     if salario_max:
         query = query.filter(JobOffer.salario <= salario_max)
     
-    # Ordenar por fecha de publicación (más recientes primero)
+    # Ordenar por fecha de publicacion (mas recientes primero)
     query = query.order_by(desc(JobOffer.fecha_publicacion))
     
     return query.offset(skip).limit(limit).all()
@@ -238,7 +238,7 @@ def search_job_offers(
     skip: int = 0,
     limit: int = 100
 ) -> List[JobOffer]:
-    """Búsqueda de texto completo en ofertas laborales."""
+    """Busqueda de texto completo en ofertas laborales."""
     query = db.query(JobOffer).filter(
         or_(
             JobOffer.titulo.ilike(f"%{search_query}%"),
@@ -355,7 +355,7 @@ def update_scraping_job_status(
 # ==================== CRUD PARA INTERACCIONES DE USUARIO ====================
 
 def create_user_job_interaction(db: Session, interaction: UserJobInteractionCreate) -> UserJobInteraction:
-    """Crear una nueva interacción usuario-oferta."""
+    """Crear una nueva interaccion usuario-oferta."""
     db_interaction = UserJobInteraction(**interaction.dict())
     db.add(db_interaction)
     db.commit()
@@ -381,7 +381,7 @@ def get_user_job_interactions(
 # ==================== CRUD PARA HISTORIAL DE BÚSQUEDAS ====================
 
 def create_search_history(db: Session, search: SearchHistoryCreate) -> SearchHistory:
-    """Crear un registro de historial de búsqueda."""
+    """Crear un registro de historial de busqueda."""
     db_search = SearchHistory(**search.dict())
     db.add(db_search)
     db.commit()
@@ -395,7 +395,7 @@ def get_user_search_history(
     skip: int = 0,
     limit: int = 100
 ) -> List[SearchHistory]:
-    """Obtener historial de búsquedas de un usuario."""
+    """Obtener historial de busquedas de un usuario."""
     return db.query(SearchHistory).filter(
         SearchHistory.user_id == user_id
     ).order_by(desc(SearchHistory.created_at)).offset(skip).limit(limit).all()
@@ -404,7 +404,7 @@ def get_user_search_history(
 # ==================== FUNCIONES DE ESTADÍSTICAS ====================
 
 def get_job_stats(db: Session) -> Dict[str, Any]:
-    """Obtener estadísticas generales de ofertas laborales."""
+    """Obtener estadisticas generales de ofertas laborales."""
     total_jobs = db.query(JobOffer).count()
     active_jobs = db.query(JobOffer).filter(JobOffer.status == JobStatusEnum.ACTIVE).count()
     companies_count = db.query(Company).count()
@@ -424,7 +424,7 @@ def get_job_stats(db: Session) -> Dict[str, Any]:
 
 
 def get_scraping_stats(db: Session) -> Dict[str, Any]:
-    """Obtener estadísticas de scraping."""
+    """Obtener estadisticas de scraping."""
     total_sources = db.query(ScrapingSource).count()
     active_sources = db.query(ScrapingSource).filter(ScrapingSource.is_active == True).count()
     total_scraping_jobs = db.query(ScrapingJob).count()

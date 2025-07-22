@@ -1,6 +1,6 @@
 # connection.py
-# Configuración de la conexión a la base de datos
-# Setup de SQLAlchemy engine, session y configuración de la BD
+# Configuracion de la conexion a la base de datos
+# Setup de SQLAlchemy engine, session y configuracion de la BD
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 from typing import Generator
 
-# URL de conexión a PostgreSQL desde variable de entorno
+# URL de conexion a PostgreSQL desde variable de entorno
 DATABASE_URL = os.getenv(
     "DATABASE_URL", 
     "postgresql://usuario:password@localhost:5432/jobscraper"
@@ -22,7 +22,7 @@ engine = create_engine(
     echo=False           # Cambiar a True para debug SQL
 )
 
-# Configurar sesión de base de datos
+# Configurar sesion de base de datos
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
@@ -35,7 +35,7 @@ Base = declarative_base()
 def get_db() -> Generator:
     """
     Generador de sesiones de base de datos para dependency injection en FastAPI.
-    Asegura que la sesión se cierre correctamente después de cada request.
+    Asegura que la sesion se cierre correctamente despues de cada request.
     """
     db = SessionLocal()
     try:
@@ -46,13 +46,13 @@ def get_db() -> Generator:
 def create_tables():
     """
     Crear todas las tablas definidas en los modelos.
-    Usar solo en desarrollo o para inicialización.
+    Usar solo en desarrollo o para inicializacion.
     """
     Base.metadata.create_all(bind=engine)
 
 def drop_tables():
     """
     Eliminar todas las tablas.
-    Usar con precaución, solo en desarrollo.
+    Usar con precaucion, solo en desarrollo.
     """
     Base.metadata.drop_all(bind=engine)

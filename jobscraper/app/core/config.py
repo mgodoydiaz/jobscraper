@@ -1,6 +1,6 @@
 # config.py
-# Configuración específica de la aplicación
-# Variables de entorno, configuración de la aplicación FastAPI
+# Configuracion especifica de la aplicacion
+# Variables de entorno, configuracion de la aplicacion FastAPI
 
 from pydantic_settings import BaseSettings
 from pydantic import validator
@@ -10,11 +10,11 @@ import secrets
 
 class Settings(BaseSettings):
     """
-    Configuración de la aplicación usando Pydantic Settings.
-    Las variables se cargan automáticamente desde el archivo .env
+    Configuracion de la aplicacion usando Pydantic Settings.
+    Las variables se cargan automaticamente desde el archivo .env
     """
     
-    # Configuración de la aplicación
+    # Configuracion de la aplicacion
     PROJECT_NAME: str = "JobScraper"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
     
-    # Configuración de scraping
+    # Configuracion de scraping
     SCRAPING_DELAY: float = 1.0
     MAX_CONCURRENT_REQUESTS: int = 10
     REQUEST_TIMEOUT: int = 30
@@ -51,16 +51,16 @@ class Settings(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60
     RATE_LIMIT_PER_HOUR: int = 1000
     
-    # Configuración de archivos
+    # Configuracion de archivos
     UPLOAD_DIR: str = "uploads"
     MAX_FILE_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_FILE_TYPES: List[str] = ["pdf", "doc", "docx"]
     
-    # Configuración de logging
+    # Configuracion de logging
     LOG_LEVEL: str = "INFO"
     LOG_FILE: str = "logs/app.log"
     
-    # Configuración de email (para notificaciones)
+    # Configuracion de email (para notificaciones)
     SMTP_TLS: bool = True
     SMTP_PORT: Optional[int] = None
     SMTP_HOST: Optional[str] = None
@@ -69,7 +69,7 @@ class Settings(BaseSettings):
     EMAILS_FROM_EMAIL: Optional[str] = None
     EMAILS_FROM_NAME: Optional[str] = None
     
-    # Configuración de cache
+    # Configuracion de cache
     REDIS_URL: Optional[str] = None
     CACHE_EXPIRE_SECONDS: int = 3600
     
@@ -78,5 +78,5 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
-# Instancia global de configuración
+# Instancia global de configuracion
 settings = Settings()

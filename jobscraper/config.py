@@ -1,7 +1,7 @@
 # config.py
-# Configuración global del proyecto
-# Variables de entorno globales, configuración de base de datos, APIs externas, etc.
-# Este archivo centraliza toda la configuración del proyecto
+# Configuracion global del proyecto
+# Variables de entorno globales, configuracion de base de datos, APIs externas, etc.
+# Este archivo centraliza toda la configuracion del proyecto
 
 from jobscraper.app.core.config import settings
 

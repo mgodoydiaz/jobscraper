@@ -1,6 +1,6 @@
 # database_models.py
 # Modelos de base de datos (SQLAlchemy ORM)
-# Definición de tablas y relaciones de la base de datos
+# Definicion de tablas y relaciones de la base de datos
 # ACTUALIZADO: Modelos expandidos para soportar sistema completo de usuarios, scraping e historial
 
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, JSON, Numeric, Boolean, Enum as SQLEnum
@@ -52,7 +52,7 @@ class UserRoleEnum(enum.Enum):
 class User(Base):
     """
     Modelo expandido para usuarios del sistema.
-    Incluye autenticación, roles y perfil detallado.
+    Incluye autenticacion, roles y perfil detallado.
     """
     __tablename__ = "users"
 
@@ -83,7 +83,7 @@ class User(Base):
 class Company(Base):
     """
     Modelo expandido para empresas que publican ofertas laborales.
-    Incluye información adicional para mejor categorización.
+    Incluye informacion adicional para mejor categorizacion.
     """
     __tablename__ = "companies"
 
@@ -92,14 +92,14 @@ class Company(Base):
     sector = Column(String(100), nullable=True, index=True)
     sitio_web = Column(String(255), nullable=True)
     descripcion = Column(Text, nullable=True)
-    tamano = Column(String(50), nullable=True)  # startup, pequeña, mediana, grande
+    tamano = Column(String(50), nullable=True)  # startup, pequena, mediana, grande
     ubicacion = Column(String(255), nullable=True)
     
     # Timestamps automáticos
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
-    # Relación con ofertas laborales
+    # Relacion con ofertas laborales
     ofertas = relationship("JobOffer", back_populates="empresa")
 
     def __repr__(self):
@@ -109,7 +109,7 @@ class Company(Base):
 class JobOffer(Base):
     """
     Modelo expandido para ofertas laborales scrapeadas.
-    Incluye campos adicionales para mejor categorización y matching.
+    Incluye campos adicionales para mejor categorizacion y matching.
     """
     __tablename__ = "job_offers"
 
@@ -122,11 +122,11 @@ class JobOffer(Base):
     url = Column(String(500), nullable=False, unique=True)  # URL única para evitar duplicados
     fecha_scrapeo = Column(DateTime(timezone=True), server_default=func.now())
     
-    # Campos adicionales para mejor categorización
+    # Campos adicionales para mejor categorizacion
     status = Column(SQLEnum(JobStatusEnum), default=JobStatusEnum.ACTIVE, nullable=False, index=True)
     requisitos = Column(JSON, nullable=True, default=[])  # Lista de requisitos
     beneficios = Column(JSON, nullable=True, default=[])  # Lista de beneficios
-    modalidad = Column(String(50), nullable=True, index=True)  # remoto, presencial, híbrido
+    modalidad = Column(String(50), nullable=True, index=True)  # remoto, presencial, hibrido
     tipo_contrato = Column(String(50), nullable=True, index=True)  # indefinido, temporal, freelance
     nivel_experiencia = Column(String(50), nullable=True, index=True)  # junior, mid, senior
     
@@ -150,7 +150,7 @@ class JobOffer(Base):
 class ScrapingSource(Base):
     """
     Modelo para configuración de fuentes de scraping.
-    Define cómo scrapear cada sitio web específico.
+    Define como scrapear cada sitio web especifico.
     """
     __tablename__ = "scraping_sources"
 
@@ -160,13 +160,13 @@ class ScrapingSource(Base):
     descripcion = Column(Text, nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
     
-    # Configuración de scraping en JSON
+    # Configuracion de scraping en JSON
     selectors = Column(JSON, nullable=True, default={})  # CSS selectors
     headers = Column(JSON, nullable=True, default={})    # HTTP headers
     delay_seconds = Column(Numeric(4, 2), default=1.0, nullable=False)
     max_pages = Column(Integer, default=10, nullable=False)
     
-    # Estadísticas
+    # Estadisticas
     total_jobs_scraped = Column(Integer, default=0, nullable=False)
     last_scrape_at = Column(DateTime(timezone=True), nullable=True)
     
@@ -184,17 +184,17 @@ class ScrapingSource(Base):
 class ScrapingJob(Base):
     """
     Modelo para trabajos de scraping individuales.
-    Registra cada ejecución de scraping con sus parámetros y resultados.
+    Registra cada ejecucion de scraping con sus parametros y resultados.
     """
     __tablename__ = "scraping_jobs"
 
     id = Column(Integer, primary_key=True, index=True)
     source_id = Column(Integer, ForeignKey("scraping_sources.id"), nullable=False, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)  # Usuario que inició el scraping
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)  # Usuario que inicio el scraping
     
-    # Parámetros de búsqueda
-    search_terms = Column(JSON, nullable=True, default=[])      # Términos de búsqueda
-    location_filters = Column(JSON, nullable=True, default=[])  # Filtros de ubicación
+    # Parametros de busqueda
+    search_terms = Column(JSON, nullable=True, default=[])      # Terminos de busqueda
+    location_filters = Column(JSON, nullable=True, default=[])  # Filtros de ubicacion
     max_results = Column(Integer, default=100, nullable=False)
     
     # Estado y timing
@@ -252,14 +252,14 @@ class UserJobInteraction(Base):
 class SearchHistory(Base):
     """
     Modelo para historial de búsquedas de usuarios.
-    Permite análisis de patrones de búsqueda y recomendaciones.
+    Permite analisis de patrones de busqueda y recomendaciones.
     """
     __tablename__ = "search_history"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     search_query = Column(String(500), nullable=False, index=True)
-    filters_applied = Column(JSON, nullable=True, default={})  # Filtros aplicados en la búsqueda
+    filters_applied = Column(JSON, nullable=True, default={})  # Filtros aplicados en la busqueda
     results_count = Column(Integer, default=0, nullable=False)
     
     # Timestamps automáticos
@@ -274,11 +274,11 @@ class SearchHistory(Base):
 
 
 # ==================== ÍNDICES ADICIONALES ====================
-# Los índices se pueden crear mediante migraciones de Alembic para optimizar consultas frecuentes
+# Los indices se pueden crear mediante migraciones de Alembic para optimizar consultas frecuentes
 
-# Índices compuestos sugeridos:
+# Indices compuestos sugeridos:
 # - (user_id, created_at) en user_job_interactions para historial por usuario
-# - (job_id, action) en user_job_interactions para estadísticas por oferta
-# - (status, fecha_publicacion) en job_offers para búsquedas activas
+# - (job_id, action) en user_job_interactions para estadisticas por oferta
+# - (status, fecha_publicacion) en job_offers para busquedas activas
 # - (empresa_id, status) en job_offers para ofertas por empresa
 # - (source_id, status, created_at) en scraping_jobs para monitoreo
