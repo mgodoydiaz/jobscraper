@@ -2,7 +2,8 @@
 # Configuración específica de la aplicación
 # Variables de entorno, configuración de la aplicación FastAPI
 
-from pydantic import BaseSettings, validator
+from pydantic_settings import BaseSettings
+from pydantic import validator
 from typing import Optional, List
 import secrets
 

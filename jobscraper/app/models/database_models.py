@@ -235,7 +235,7 @@ class UserJobInteraction(Base):
     action = Column(String(50), nullable=False, index=True)  # viewed, saved, applied, rejected
     
     # Metadatos adicionales en JSON
-    metadata = Column(JSON, nullable=True, default={})
+    interaction_metadata = Column(JSON, nullable=True, default={})
     
     # Timestamps automáticos
     created_at = Column(DateTime(timezone=True), server_default=func.now())
