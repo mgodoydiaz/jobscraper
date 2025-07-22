@@ -95,7 +95,7 @@ def validate_email(email: str) -> bool:
     return re.match(pattern, email) is not None
 
 
-def validate_password_strength(password: str) -> tuple[bool, list[str]]:
+def validate_password_strength(password: str) -> Tuple[bool, List[str]]:
     """
     Valida la fortaleza de una contraseña.
     Retorna (es_válida, lista_de_errores).
