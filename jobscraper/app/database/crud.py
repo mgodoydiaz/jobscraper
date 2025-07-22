@@ -147,9 +147,9 @@ def delete_company(db: Session, company_id: int) -> bool:
 
 # ==================== CRUD PARA OFERTAS LABORALES ====================
 
-def create_job_offer(db: Session, job: JobOfferCreate, empresa_id: int) -> JobOffer:
+def create_job_offer(db: Session, job: JobOfferCreate) -> JobOffer:
     """Crear una nueva oferta laboral."""
-    db_job = JobOffer(**job.dict(), empresa_id=empresa_id)
+    db_job = JobOffer(**job.dict())
     db.add(db_job)
     db.commit()
     db.refresh(db_job)
